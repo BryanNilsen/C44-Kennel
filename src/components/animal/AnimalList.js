@@ -13,8 +13,8 @@ export const AnimalList = () => {
     useEffect(() => {
         console.log("AnimalList: Initial render before data")
         getLocations()
-        .then(getCustomers)
-        .then(getAnimals)
+            .then(getCustomers)
+            .then(getAnimals)
     }, [])
 
     // ALTERNATIVE METHOD >> WAIT TO RENDER ANIMAL UNTIL LOCATIONS AND CUSTOMERS RETRIEVED
@@ -34,9 +34,9 @@ export const AnimalList = () => {
             const clinic = locations.find(l => l.id === animal.locationId)
 
             return <Animal key={animal.id}
-                        location={clinic}
-                        customer={owner}
-                        animal={animal} />
+                location={clinic}
+                customer={owner}
+                animal={animal} />
         })
     )
 }
