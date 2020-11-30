@@ -5,7 +5,7 @@ import { CustomerContext } from "../customer/CustomerProvider"
 import { Animal } from "./Animal"
 import "./Animal.css"
 
-export const AnimalList = () => {
+export const AnimalList = (props) => {
     const { animals, getAnimals } = useContext(AnimalContext)
     const { locations, getLocations } = useContext(LocationContext)
     const { customers, getCustomers } = useContext(CustomerContext)
@@ -17,26 +17,24 @@ export const AnimalList = () => {
             .then(getAnimals)
     }, [])
 
-    // ALTERNATIVE METHOD >> WAIT TO RENDER ANIMAL UNTIL LOCATIONS AND CUSTOMERS RETRIEVED
-    // useEffect(() => {
-    //     getLocations()
-    // }, [])
-    // useEffect(() => {
-    //     getCustomers()
-    // }, [locations])
-    // useEffect(() => {
-    //     getAnimals()
-    // }, [customers])
 
     return (
-        animals.map(animal => {
-            const owner = customers.find(c => c.id === animal.customerId)
-            const clinic = locations.find(l => l.id === animal.locationId)
+        <div className="animals">
+            <h1>Animals</h1>
+            <button onClick={() => props.history.push("/animals/create")}>
+                Make Appointment
+        </button>
+            <article className="animalList">
+                {animals.map(animal => {
+                    const owner = customers.find(c => c.id === animal.customerId)
+                    const clinic = locations.find(l => l.id === animal.locationId)
 
-            return <Animal key={animal.id}
-                location={clinic}
-                customer={owner}
-                animal={animal} />
-        })
+                    return <Animal key={animal.id}
+                        loc={clinic}
+                        customer={owner}
+                        animal={animal} />
+                })}
+            </article>
+        </div>
     )
 }

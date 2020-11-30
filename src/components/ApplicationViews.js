@@ -9,6 +9,7 @@ import { CustomerList } from "./customer/CustomerList"
 import { EmployeeProvider } from "./employee/EmployeeProvider"
 import { EmployeeList } from "./employee/EmployeeList"
 import { EmployeeForm } from "./employee/EmployeeForm"
+import { AnimalForm } from "./animal/AnimalForm"
 
 export const ApplicationViews = (props) => {
     return (
@@ -23,9 +24,11 @@ export const ApplicationViews = (props) => {
             <AnimalProvider>
                 <LocationProvider>
                     <CustomerProvider>
-                        <Route exact path="/animals">
-                            <AnimalList />
-                        </Route>
+                        <Route exact path="/animals" render={
+                            props => <AnimalList {...props} />} />
+                        {/* should this be nested separately with just animal and location provider?? */}
+                        <Route path="/animals/create" render={
+                            props => <AnimalForm {...props} />} />
                     </CustomerProvider>
                 </LocationProvider>
             </AnimalProvider>
